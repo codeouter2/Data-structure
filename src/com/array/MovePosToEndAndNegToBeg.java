@@ -14,7 +14,7 @@ public class MovePosToEndAndNegToBeg {
 
 	public static void main(String[] args) {
 		
-		int arr[] = {-12, 11, -13, -5, 6, -7, 5, -3, -6};
+		int arr[] = {-12, 0, -13, -5, 6, -7, 5, -3, -6};
 		int size = arr.length-1;
 		
 		aprroach1(arr);
@@ -25,28 +25,27 @@ public class MovePosToEndAndNegToBeg {
 	
 	private static void approach3(int[] arr, int size) {
 		int negsize = 0;
-		int possize = 0;
+		int[] newArr = new int[size+1];
 		for(int i=0;i<=size;i++)
 		{
+			int no = 0;
 			if(arr[i]<0) {
+				no = arr[i];
+				newArr[negsize] = no;
 				negsize++;
 			}
-			else {
-				possize++;
-			}
 		}
+		int pos = negsize;
 		for(int i=0;i<=size;i++)
-		{   
-			if(arr[i] < 0) {
-				
+		{
+			int no = 0;
+			if(arr[i]>0) {
+				no = arr[i];
+				newArr[pos] = no;
+				pos++;
 			}
 		}
-		System.out.println(negsize + " " + possize);
-		int[] negArr = new int[negsize];
-		int[] posArr = new int[possize];
-		
-		
-		System.out.println(Arrays.toString(negArr) );
+		System.out.println(Arrays.toString(newArr));
 	}
 
 
@@ -60,7 +59,7 @@ public class MovePosToEndAndNegToBeg {
 	private static void aprroach1(int[] arr) {
 		List<Integer> list = IntStream.of(arr).boxed().collect(Collectors.toList());
 		List<Integer>  mlist = list.stream().filter(i -> i < 0).collect(Collectors.toList());
-		List<Integer>  nlist = list.stream().filter(i -> i > 0).collect(Collectors.toList());
+		List<Integer>  nlist = list.stream().filter(i -> i >= 0).collect(Collectors.toList());
 		list.clear();
 		list.addAll(mlist);
 		list.addAll(nlist);
